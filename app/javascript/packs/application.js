@@ -9,6 +9,7 @@
 
 // Styles
 import 'styles/application'
+import 'images/engineerssg-logo-text-desc.svg'
 
 // JavaScript
 import 'materialize-css'
@@ -20,3 +21,8 @@ Rails.start();
 let componentRequireContext = require.context("components", true)
 import ReactRailsUJS from "react_ujs"
 ReactRailsUJS.useContext(componentRequireContext)
+
+document.addEventListener('DOMContentLoaded', () => {
+    let elem = document.querySelector('.sidenav');
+    M.Sidenav.init(elem);
+})

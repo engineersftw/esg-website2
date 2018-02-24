@@ -8,22 +8,58 @@ html
 
     meta name="viewport" content="width=device-width, initial-scale=1.0" /
   body
-    .navbar-fixed
-      nav
-        .nav-wrapper.container
-          a.brand-logo href="/" Engineers.SG
-          ul#nav-mobile.right.hide-on-med-and-down
+    nav.main-header
+      .nav-wrapper
+        .container
+          a.brand-logo href="/"
+            img.responsive-img alt="Engineers.SG" src=asset_pack_path('images/engineerssg-logo-text-desc.svg') width="280" /
+
+          a.sidenav-trigger href="#" data-target="mobile-nav"
+            i.material-icons menu
+
+          ul.right.hide-on-med-and-down
             li
-              a href="sass.html" Videos
+              a href="/episodes/" title="Videos"
+                i.material-icons.left video_library
+                span Videos
             li
-              a href="collapsible.html" Conferences
+              a href="/conferences" title="Conferences"
+                i.material-icons.left assignment
+                span Conferences
             li
-              a href="badges.html" Organizations
+              a href="/organizations" title="Organizations"
+                i.material-icons.left today
+                span Organizations
             li
-              a href="collapsible.html" Presenters
+              a href="/presenters" title="Presenters"
+                i.material-icons.left person_pin
+                span Presenters
+            li
+              a href="/episodes/search" title="Search"
+                i.material-icons.left search
+            li
+              a href="/support_us" title="Support Us"
+                i.material-icons.left loyalty
+
+    ul#mobile-nav.sidenav
+      li
+        a href="/episodes/" Videos
+      li
+        a href="/conferences" Conferences
+      li
+        a href="/organizations" Organizations
+      li
+        a href="/presenters" Presenters
+      li
+        a href="/episodes/search" Search
+      li
+        a href="/support_us/" Support Us
+      li
+        a href="/events/" Events
+      li
+        a href="/bookings" Book Us
 
     .container
-
       == yield
 
     = javascript_pack_tag 'application'
