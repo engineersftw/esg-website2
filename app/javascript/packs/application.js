@@ -9,7 +9,8 @@
 
 console.log('Hello World from Webpacker')
 
-import 'src/application'
+import 'styles/application'
+import 'materialize-css'
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true)
