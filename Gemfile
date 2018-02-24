@@ -40,6 +40,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
+gem 'react-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
