@@ -7,12 +7,16 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
-
+// Styles
 import 'styles/application'
+
+// JavaScript
 import 'materialize-css'
 
+import Rails from 'rails-ujs';
+Rails.start();
+
 // Support component names relative to this directory:
-var componentRequireContext = require.context("components", true)
-var ReactRailsUJS = require("react_ujs")
+let componentRequireContext = require.context("components", true)
+import ReactRailsUJS from "react_ujs"
 ReactRailsUJS.useContext(componentRequireContext)

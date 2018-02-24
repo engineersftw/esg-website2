@@ -8,8 +8,22 @@ html
 
     meta name="viewport" content="width=device-width, initial-scale=1.0" /
   body
-    h1 Engineers.SG
+    .navbar-fixed
+      nav
+        .nav-wrapper.container
+          a.brand-logo href="/" Engineers.SG
+          ul#nav-mobile.right.hide-on-med-and-down
+            li
+              a href="sass.html" Videos
+            li
+              a href="collapsible.html" Conferences
+            li
+              a href="badges.html" Organizations
+            li
+              a href="collapsible.html" Presenters
 
-    == yield
+    .container
+
+      == yield
 
     = javascript_pack_tag 'application'
