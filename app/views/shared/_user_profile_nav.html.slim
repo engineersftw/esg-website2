@@ -9,4 +9,5 @@
     - if user_signed_in?
       = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'waves-effect waves-light btn-small'
     - else
-      = link_to 'Sign In', new_user_session_path, class: 'waves-effect waves-light btn-small'
+      => link_to 'Login', new_user_session_path, class: 'waves-effect waves-light btn-small'
+      = link_to 'Sign Up', new_user_registration_path, class: 'waves-effect waves-light btn-small'
