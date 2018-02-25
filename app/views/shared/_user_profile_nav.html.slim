@@ -2,7 +2,7 @@
   .col.s6.salutation
     - if user_signed_in?
       | Welcome back,
-      =< link_to current_user.name, profile_index_path
+      =< link_to current_user.name, account_index_path
     - else
       | Welcome to Engineers.SG!
   .col.s6.right-align

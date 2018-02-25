@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :profile, only: [:index] do
+  resources :account, only: [:index] do
     collection do
       match '/finish_signup', to: 'profile#finish_setup', via: [:get, :patch], as: 'finish_signup'
     end
