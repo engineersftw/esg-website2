@@ -1,3 +1,19 @@
 .row
   .col.s12
-    p This is the profile page
+    h4 Profile
+
+  .col.s12
+    h5 Social Accounts
+
+    .social-logins
+      - %w(facebook github twitter).each do |account_type|
+        - social_account = current_user.identities.select {|i| i.provider == account_type}.first
+        - unless social_account.nil?
+          a.btn-large(href="#")
+            .valign-wrapper
+              img.circle.responsive-img(src=social_account.avatar_url width="40")
+              |&nbsp;
+              =< account_type.capitalize
+        - else
+          = link_to "Connect to #{account_type.capitalize}", "/users/auth/#{account_type}", class: 'waves-effect waves-light btn-large white grey-text text-darken-3'
+        | &nbsp;&nbsp;&nbsp;

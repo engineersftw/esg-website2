@@ -36,8 +36,7 @@ class User < ApplicationRecord
       if user.nil?
         user = User.new(
           name: auth.extra.raw_info.name,
-          #username: auth.info.nickname || auth.uid,
-          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          email: "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
         user.skip_confirmation!
@@ -50,6 +49,7 @@ class User < ApplicationRecord
       identity.user = user
       identity.save!
     end
+
     user
   end
 
