@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  match '/profile/finish_signup', to: 'profile#finish_setup', via: [:get, :patch], as: :finish_signup
+  resources :profile, only: [:index] do
+    collection do
+      match '/finish_signup', to: 'profile#finish_setup', via: [:get, :patch], as: 'finish_signup'
+    end
+  end
 
   namespace :admin do
     get '/', to: 'videos#index'

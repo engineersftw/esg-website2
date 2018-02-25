@@ -1,6 +1,8 @@
 class ProfileController < ApplicationController
   before_action :authenticate_user!
 
+  def index; end
+
   def finish_setup
     if request.patch? && params[:user]
       if current_user.update(user_params)

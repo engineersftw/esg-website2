@@ -4,3 +4,12 @@ $primary-color: rgb(223, 223, 223) !default;
 .main-header a {
     color: #41474C;
 }
+
+.profile-nav {
+    margin-bottom: 0px;
+    padding-top: 12px;
+    padding-bottom: 7px;
+    .salutation {
+        font-weight: bold;
+    }
+}

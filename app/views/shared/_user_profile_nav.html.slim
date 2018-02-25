@@ -1,0 +1,12 @@
+.row.profile-nav
+  .col.s6.salutation
+    - if user_signed_in?
+      | Welcome back,
+      =< link_to current_user.name, profile_index_path
+    - else
+      | Welcome to Engineers.SG!
+  .col.s6.right-align
+    - if user_signed_in?
+      = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'waves-effect waves-light btn-small'
+    - else
+      = link_to 'Sign In', new_user_session_path, class: 'waves-effect waves-light btn-small'
