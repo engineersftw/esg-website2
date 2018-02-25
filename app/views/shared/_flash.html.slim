@@ -1,0 +1,15 @@
+- if notice.present? || alert.present?
+  .row.flash-panel
+    .col.s12.offset-l1.l10
+      - if notice.present?
+        .card.light-green.lighten-3
+          .card-content.valign-wrapper
+            i.material-icons.small info_outline
+            | &nbsp;
+            p.valign.notice=< notice
+      - if alert.present?
+        .card.red.lighten-4
+          .card-content.valign-wrapper
+            i.material-icons.small error_outline
+            | &nbsp;
+            p.valign.alert=< alert

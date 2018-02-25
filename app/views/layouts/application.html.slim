@@ -13,6 +13,7 @@ html
 
     .container
       ==render 'shared/user_profile_nav'
+      ==render 'shared/flash'
       == yield
 
     = javascript_pack_tag 'application'

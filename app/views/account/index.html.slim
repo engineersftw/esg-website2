@@ -1,6 +1,6 @@
 .row
   .col.s12
-    h4 Profile
+    h4 Account
 
   .col.s12
     h5 Social Accounts
@@ -15,5 +15,47 @@
               |&nbsp;
               =< account_type.capitalize
         - else
-          = link_to "Connect to #{account_type.capitalize}", "/users/auth/#{account_type}", class: 'waves-effect waves-light btn-large white grey-text text-darken-3'
+          a.waves-effect.waves-teal.btn-large.white.grey-text.text-darken-3(href="/users/auth/#{account_type}")
+            .valign-wrapper
+              i.material-icons person_add
+              |&nbsp;
+              =< "Connect to #{account_type.capitalize}"
         | &nbsp;&nbsp;&nbsp;
+
+.row
+  .col.s12.m6
+    h5 Access Tokens
+
+  .col.s12.m6.right-align
+    a.waves-effect.waves-light.btn-small(href=access_tokens_new_account_index_path(token_type: 'stream_key'))
+      i.material-icons.right add
+      | Create New Token
+
+  .col.s12
+    table.striped
+      thead
+        tr
+          th Type
+          th Details
+          th Status
+          th Created on
+          th Actions
+      tbody
+        - current_user.access_tokens.each do |token|
+          tr
+            td
+              - type_color = token.stream_key? ? 'blue' : 'teal'
+              span.new.badge(data-badge-caption=token.token_type.to_s.humanize.titleize class=type_color)
+            td
+              strong=token.title
+              br/
+              code<=token.access_token
+            td
+              - active_string = token.active? ? 'Active' : 'Inactive'
+              - active_color = token.active? ? 'green' : 'red'
+              span.new.badge(data-badge-caption=active_string class=active_color)
+
+            td=token.created_at
+            td
+              a.waves-effect.waves-light.btn-small(href="/account/access_tokens/#{token.id}" data-method='delete' data-confirm="Are you sure?")
+                i.material-icons delete

@@ -3,6 +3,11 @@ class AccessToken < ApplicationRecord
 
   belongs_to :user
 
-  validates_presence_of :user, :token_type
+  validates_presence_of :user, :title, :token_type
   validates_uniqueness_of :access_token
+
+  def self.generate_token_string
+    uuid = SecureRandom.uuid
+    Base64.encode64(uuid)
+  end
 end

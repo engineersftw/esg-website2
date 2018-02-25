@@ -9,6 +9,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[facebook github twitter]
 
   has_many :identities
+  has_many :access_tokens
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 

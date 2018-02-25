@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180225101537) do
     t.bigint "user_id"
     t.string "access_token"
     t.integer "token_type", default: 1, null: false
-    t.boolean "valid", default: true
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["access_token"], name: "index_access_tokens_on_access_token", unique: true
