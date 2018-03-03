@@ -1,0 +1,1 @@
+class TokenNotFoundException < Exception; end

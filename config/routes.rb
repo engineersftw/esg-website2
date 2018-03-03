@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api, defaults: {format: :json} do
+    resources :recordings, only: [:create]
+  end
+
   namespace :admin do
     get '/', to: 'videos#index'
     resources :videos, only: [:index]
