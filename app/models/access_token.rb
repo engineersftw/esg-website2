@@ -8,6 +8,6 @@ class AccessToken < ApplicationRecord
 
   def self.generate_token_string
     uuid = SecureRandom.uuid
-    Base64.encode64(uuid)
+    Base64.encode64(uuid).strip
   end
 end
