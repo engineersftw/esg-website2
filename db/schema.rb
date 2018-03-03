@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180225101537) do
+ActiveRecord::Schema.define(version: 20180302105235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,26 @@ ActiveRecord::Schema.define(version: 20180225101537) do
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "location"
+    t.string "platform_uid"
+    t.string "platform"
+    t.string "event_url"
+    t.string "group_uid"
+    t.string "group_name"
+    t.string "group_url"
+    t.string "formatted_time"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform", "group_uid"], name: "index_events_on_platform_and_group_uid"
+    t.index ["platform", "platform_uid"], name: "by_platform_uid", unique: true
+  end
+
   create_table "identities", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
@@ -36,6 +56,19 @@ ActiveRecord::Schema.define(version: 20180225101537) do
     t.string "email"
     t.string "avatar_url"
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "presentations", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "presented_at"
+    t.boolean "published", default: true
+    t.string "video_source"
+    t.string "video_id"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["video_source", "video_id"], name: "by_video_source_and_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
