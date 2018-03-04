@@ -1,0 +1,10 @@
+li.row.collection-item
+  .col.s12
+    h5=event.title
+    blockquote
+      = link_to event.group_name, event.group_url, target: '_blank'
+    p
+      strong=event.formatted_time
+    p=event.location
+    - button_text = event.rsvp_count.present? && event.rsvp_count > 0 ? "Join #{event.rsvp_count} others" : "Join now"
+    a.btn.waves-effect.waves-light (href=event.event_url target="_blank")= button_text

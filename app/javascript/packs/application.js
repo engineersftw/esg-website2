@@ -25,4 +25,7 @@ ReactRailsUJS.useContext(componentRequireContext)
 document.addEventListener('DOMContentLoaded', () => {
     let elem = document.querySelector('.sidenav');
     M.Sidenav.init(elem);
+
+    let el = document.querySelector('.tabs');
+    M.Tabs.init(el);
 })

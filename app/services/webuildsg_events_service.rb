@@ -21,6 +21,8 @@ class WebuildsgEventsService
       event.start_datetime = meetup[:start_time]
       event.end_datetime = meetup[:end_time]
 
+      event.rsvp_count = meetup[:rsvp_count]
+
       event
     end
   end
