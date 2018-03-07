@@ -3,6 +3,12 @@ class AccountController < ApplicationController
 
   def index; end
 
+  def recordings
+    @current_page = (params[:page] || 1).to_i
+    @recordings = current_user.recordings.order('start_time DESC').page(@current_page)
+    @total_records = @recordings.total_count
+  end
+
   def finish_setup
     @current_email = finish_setup_email
 

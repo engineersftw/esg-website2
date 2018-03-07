@@ -1,0 +1,40 @@
+.row
+  .col.s12
+    h4 My Recordings
+
+  .col.s12
+    table.striped
+      thead
+        tr
+          th Name
+          th Path
+          th Start Time
+          th End Time
+          th Status
+      tbody
+        == render partial: 'shared/recording', collection: @recordings, as: :recording
+
+.row
+  .col.s12
+    ul.pagination.center
+      - if @current_page < 2
+        li.disabled
+          a href='#!'
+            i.material-icons chevron_left
+      - else
+        li.waves-effect
+          a href=recordings_account_index_path(page: @current_page - 1)
+            i.material-icons chevron_left
+
+      - (1..@recordings.total_pages).each do |n|
+        li class=(n == @current_page ? 'active' : 'waves-effect')
+          a(href=recordings_account_index_path(page: n))= n
+
+      - if @current_page >= @recordings.total_pages
+        li.disabled
+          a href='#!'
+            i.material-icons chevron_right
+      - else
+        li.waves-effect
+          a href=recordings_account_index_path(page: @current_page + 1)
+            i.material-icons chevron_right

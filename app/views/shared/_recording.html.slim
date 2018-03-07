@@ -1,0 +1,10 @@
+tr
+  td= recording.name
+  td
+    strong= recording.path
+  td= recording.start_time.strftime('%e-%b-%Y %I:%M %P')
+  td= recording.end_time.strftime('%e-%b-%Y %I:%M %P')
+  td
+    - active_string = recording.status == 'recording_done' ? 'Recorded' : 'Pending'
+    - active_color = recording.status == 'recording_done' ? 'green' : 'orange'
+    span.new.badge(data-badge-caption=active_string class=active_color)

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get '/access_tokens/new', to: 'access_tokens#new'
       post '/access_tokens', to: 'access_tokens#create'
       delete '/access_tokens/:id', to: 'access_tokens#destroy'
+      get '/recordings', to: 'account#recordings'
     end
   end
 
@@ -26,5 +27,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'videos#index'
     resources :videos, only: [:index]
+    resources :recordings, only: [:index]
   end
 end

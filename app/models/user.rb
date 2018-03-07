@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :identities
   has_many :access_tokens
+  has_many :recordings
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
