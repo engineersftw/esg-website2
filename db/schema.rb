@@ -74,12 +74,16 @@ ActiveRecord::Schema.define(version: 20180304144830) do
 
   create_table "recordings", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "video_path", null: false
-    t.string "original_name"
-    t.string "ip_addr"
+    t.string "name"
+    t.string "addr", null: false
+    t.integer "clientid", null: false
+    t.string "path"
+    t.datetime "start_time", null: false
+    t.datetime "end_time"
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "addr", "clientid"], name: "by_name_ipaddr_and_clientid"
     t.index ["user_id"], name: "index_recordings_on_user_id"
   end
 
