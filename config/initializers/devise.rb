@@ -256,14 +256,6 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], scope: 'email'
   config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], scope: 'user'
   config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'],
-           {
-               name: 'google',
-               scope: 'email, profile, http://gdata.youtube.com, https://www.googleapis.com/auth/youtube.force-ssl, https://www.googleapis.com/auth/youtube, https://www.googleapis.com/auth/youtubepartner, https://www.googleapis.com/auth/youtube.upload',
-               prompt: 'select_account',
-               image_aspect_ratio: 'square',
-               image_size: 50
-           }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
