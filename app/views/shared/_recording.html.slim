@@ -1,5 +1,6 @@
 tr
-  td= recording.name
+  td
+    img src=recording.screenshots.first width=100
   td
     strong= recording.path
   td= recording.start_time.strftime('%e-%b-%Y %I:%M %P')
@@ -8,3 +9,8 @@ tr
     - active_string = recording.status == 'recording_done' ? 'Recorded' : 'Pending'
     - active_color = recording.status == 'recording_done' ? 'green' : 'orange'
     span.new.badge(data-badge-caption=active_string class=active_color)
+tr
+  td(colspan=5)
+    - recording.screenshots.first(15).each do |screen|
+      img src=screen width=50
+      | &nbsp;
