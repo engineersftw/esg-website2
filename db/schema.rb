@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311060328) do
+ActiveRecord::Schema.define(version: 20180311093149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,41 @@ ActiveRecord::Schema.define(version: 20180311060328) do
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
+  create_table "playlist_categories", force: :cascade do |t|
+    t.string "title"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "playlist_items", force: :cascade do |t|
+    t.bigint "playlist_id"
+    t.bigint "presentation_id"
+    t.integer "sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_id"], name: "index_playlist_items_on_playlist_id"
+    t.index ["presentation_id"], name: "index_playlist_items_on_presentation_id"
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "playlist_uid"
+    t.string "playlist_source"
+    t.string "image"
+    t.date "publish_date"
+    t.integer "playlist_category_id"
+    t.boolean "active", default: true
+    t.string "website"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_category_id"], name: "index_playlists_on_playlist_category_id"
+    t.index ["playlist_source", "playlist_uid"], name: "by_playlist_source_and_uid", unique: true
+    t.index ["slug"], name: "by_slug", unique: true
+  end
+
   create_table "presentations", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -72,6 +107,11 @@ ActiveRecord::Schema.define(version: 20180311060328) do
     t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "view_count", default: 0
+    t.string "image1"
+    t.string "image2"
+    t.string "image3"
+    t.integer "status", default: 1
     t.index ["video_source", "video_id"], name: "by_video_source_and_id", unique: true
   end
 
@@ -116,5 +156,7 @@ ActiveRecord::Schema.define(version: 20180311060328) do
 
   add_foreign_key "access_tokens", "users"
   add_foreign_key "identities", "users"
+  add_foreign_key "playlist_items", "playlists"
+  add_foreign_key "playlist_items", "presentations"
   add_foreign_key "recordings", "users"
 end
