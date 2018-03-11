@@ -28,4 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let el = document.querySelector('.tabs');
     M.Tabs.init(el);
+
+    let datePickerElem = document.querySelector('.datepicker');
+    M.Datepicker.init(datePickerElem);
+
+    let anotherickerElem = document.querySelector('#event_end_datetime');
+    M.Datepicker.init(anotherickerElem);
 })

@@ -1,6 +1,9 @@
 li.row.collection-item
   .col.s12
-    h5=event.title
+    h5
+      =event.title
+      - if event.scheduled_for_recording?
+        span.new.badge(data-badge-caption='Scheduled for Recording' class='deep-orange lighten-3')
     blockquote
       = link_to event.group_name, event.group_url, target: '_blank'
     p

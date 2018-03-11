@@ -1,0 +1,24 @@
+tr
+  td (nowrap)= event.formatted_time
+  td
+    strong= link_to event.group_name, event.group_url, target: '_blank'
+  td
+    strong= link_to event.title, event.event_url, target: '_blank'
+    br
+    = event.location
+  td
+    - if event.scheduled_for_recording?
+      - if event.needs_permission?
+        span.new.badge(data-badge-caption='needs_permission' class='deep-orange lighten-3')
+      - elsif event.needs_volunteer?
+        span.new.badge(data-badge-caption='needs_volunteer' class='yellow darken-3')
+      - elsif event.set_allocated?
+        span.new.badge(data-badge-caption=event.esg_set class='green lighten-3')
+
+      br
+      small= "Volunteers: #{event.esg_volunteer1} / #{event.esg_volunteer2}"
+    - else
+      span.new.badge(data-badge-caption='not_recording' class='grey')
+  td
+    a.waves-effect.waves-light.btn-small(href=edit_admin_event_path(event))
+      i.material-icons edit

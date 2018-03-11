@@ -31,5 +31,10 @@ Rails.application.routes.draw do
     get '/', to: 'videos#index'
     resources :videos, only: [:index]
     resources :recordings, only: [:index]
+    resources :events, only: [:index, :edit, :update, :new, :create] do
+      collection do
+        get '/history', to: 'events#history'
+      end
+    end
   end
 end

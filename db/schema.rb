@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20180311094033) do
     t.string "esg_volunteer1"
     t.string "esg_volunteer2"
     t.string "esg_set"
-    t.integer "schedule_status", default: 1
+    t.integer "schedule_status", default: 0
     t.index ["platform", "group_uid"], name: "index_events_on_platform_and_group_uid"
     t.index ["platform", "platform_uid"], name: "by_platform_uid", unique: true
     t.index ["scheduled_for_recording"], name: "index_events_on_scheduled_for_recording"
@@ -123,12 +123,12 @@ ActiveRecord::Schema.define(version: 20180311094033) do
 
   create_table "recordings", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "name"
+    t.string "name", null: false
     t.string "addr", null: false
     t.integer "clientid", null: false
-    t.string "path"
     t.datetime "start_time", null: false
     t.datetime "end_time"
+    t.string "path"
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
