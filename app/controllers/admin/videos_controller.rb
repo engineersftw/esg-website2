@@ -1,7 +1,5 @@
 module Admin
-  class VideosController < ApplicationController
-    before_action :authenticate_user!
-
+  class VideosController < BaseController
     def index
     end
   end

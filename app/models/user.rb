@@ -14,6 +14,9 @@ class User < ApplicationRecord
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
+  enum role: { user: 1, publisher: 2, admin: 10 }
+  after_initialize :set_default_role, if: :new_record?
+
   def self.find_for_oauth(auth, signed_in_resource = nil)
 
     # Get the identity and user if they exist
@@ -53,6 +56,10 @@ class User < ApplicationRecord
     end
 
     user
+  end
+
+  def set_default_role
+    self.role ||= :user
   end
 
   def email_verified?

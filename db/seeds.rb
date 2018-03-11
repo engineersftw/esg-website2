@@ -7,7 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 user = User.find_or_initialize_by(email: 'admin@engineers.sg') do |u|
+  u.name='Admin'
   u.password='password1234'
+  u.role = :admin
 end
 user.skip_confirmation!
 user.save!
