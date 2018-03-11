@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311093149) do
+ActiveRecord::Schema.define(version: 20180311094033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,8 +44,14 @@ ActiveRecord::Schema.define(version: 20180311093149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "rsvp_count", default: 0
+    t.boolean "scheduled_for_recording", default: false
+    t.string "esg_volunteer1"
+    t.string "esg_volunteer2"
+    t.string "esg_set"
+    t.integer "schedule_status", default: 1
     t.index ["platform", "group_uid"], name: "index_events_on_platform_and_group_uid"
     t.index ["platform", "platform_uid"], name: "by_platform_uid", unique: true
+    t.index ["scheduled_for_recording"], name: "index_events_on_scheduled_for_recording"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -117,12 +123,12 @@ ActiveRecord::Schema.define(version: 20180311093149) do
 
   create_table "recordings", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "name", null: false
+    t.string "name"
     t.string "addr", null: false
     t.integer "clientid", null: false
+    t.string "path"
     t.datetime "start_time", null: false
     t.datetime "end_time"
-    t.string "path"
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
