@@ -13,3 +13,9 @@ user = User.find_or_initialize_by(email: 'admin@engineers.sg') do |u|
 end
 user.skip_confirmation!
 user.save!
+
+conference_category = PlaylistCategory.find_or_create_by!(title: 'Conference') do |c|
+  c.active = true
+end
+
+Playlist.find_or_create_by!(playlist_uid: 'PLECEw2eFfW7i2QFhenTaVFON6sbEhcSSa', playlist_source: 'youtube', playlist_category: conference_category)
