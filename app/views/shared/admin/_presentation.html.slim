@@ -1,0 +1,13 @@
+tr
+  td
+    img src=presentation.image1 width=100
+  td= presentation.presented_at.strftime('%e-%b-%Y')
+  td
+    strong= presentation.title
+  td
+    span.new.badge(data-badge-caption=presentation.status)
+  td(nowrap="true")
+    a.waves-effect.waves-light.btn-small>(href=admin_presentation_path(presentation) data-method='delete' data-confirm="Are you sure?")
+      i.material-icons delete
+    a.waves-effect.waves-light.btn-small(href=edit_admin_presentation_path(presentation))
+      i.material-icons edit

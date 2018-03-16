@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get 'googleauth/callback', to: 'google_auth#callback'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :account, only: [:index] do
     collection do
@@ -28,8 +27,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/', to: 'videos#index'
-    resources :videos, only: [:index]
+    get '/', to: 'presentations#index'
+    resources :presentations, only: [:index, :edit, :update, :destroy]
     resources :recordings, only: [:index]
     resources :events, only: [:index, :edit, :update, :new, :create] do
       collection do

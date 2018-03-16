@@ -24,8 +24,8 @@ namespace :engineerssg do
           v.status = :published
         end
 
-        video.title = item[:title] if video.title.try(:blank?)
-        video.description = item[:description] if video.description.blank?
+        video.title = item[:title]
+        video.description = item[:description]
         video.presented_at = item[:published_at]
         video.image1 = item[:image1]
         video.image2 = item[:image2]
