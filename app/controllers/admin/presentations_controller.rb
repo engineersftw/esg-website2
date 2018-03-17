@@ -38,19 +38,7 @@ module Admin
     def create_from_youtube
       begin
         video_item = youtube_service.get_video(params[:presentation][:video_id])
-
-        @presentation = Presentation.new(
-            published: true,
-            status: :published,
-            video_source: 'youtube',
-            video_id: video_item.id,
-            title: video_item.snippet.title,
-            presented_at: video_item.snippet.published_at,
-            description: video_item.snippet.description,
-            image1: video_item.snippet.thumbnails.default.url,
-            image2: video_item.snippet.thumbnails.medium.url,
-            image3: video_item.snippet.thumbnails.high.url
-        )
+        @presentation = Presentation.from_youtube(video_item)
 
         if @presentation.save
           redirect_to admin_presentations_path, notice: 'Successfully created presentation'
@@ -66,31 +54,28 @@ module Admin
       @recordings = Recording.ready
 
       @event = params[:event_id] ? Event.find(params[:event_id]) : Event.new
-      event_title = params[:event_id] ? "#{@event.title} - #{@event.group_name}" : '<Presentation title> - <Group Name>'
+      event_details = Event.details_for_presentation(@event, current_user)
 
-      description = <<TXT
-Speaker: 
-
-#{@event.description ? @event.description : '<description here>'}
-
-Event Page: #{@event.event_url}
-
-Produced by Engineers.SG
-Recorded by: #{current_user.name}
-TXT
-
-      @presentation = Presentation.new(published: false, title: event_title, description: description, event_id: @event.id)
+      @presentation = Presentation.new(event_details.merge(published: false, event_id: @event.id))
     end
 
     def create
       @presentation = Presentation.new(presentation_params)
 
       if @presentation.save
+        if transient_params[:event_id]
+          @presentation.event_videos.where(event_id: transient_params[:event_id]).first_or_create
+        end
+
+        if transient_params[:recording_id]
+          Recording.find(transient_params[:recording_id]).update(status: 'prepare_to_publish')
+        end
+
         redirect_to admin_presentations_path, notice: 'Successfully created presentation'
       else
         @recordings = Recording.ready
-        @presentation.recording_id = params[:recording_id]
-        @presentation.event_id = params[:event_id]
+        @presentation.recording_id = transient_params[:recording_id]
+        @presentation.event_id = transient_params[:event_id]
         flash.now[:alert] = 'Unable to create new presentation: ' + @presentation.errors.full_messages.join(". ")
         render :edit
       end
@@ -104,6 +89,10 @@ TXT
 
     def presentation_params
       params.require(:presentation).permit(:title, :description, :presented_at, :published)
+    end
+
+    def transient_params
+      params.require(:presentation).permit(:recording_id, :event_id)
     end
 
     def update_youtube_details_for(presentation)

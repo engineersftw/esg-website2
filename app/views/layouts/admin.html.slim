@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title Engineers.SG
+    = csrf_meta_tags
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
+    = stylesheet_pack_tag 'application'
+
+    meta name="viewport" content="width=device-width, initial-scale=1.0" /
+  body
+    ==render 'shared/admin/navbar'
+
+    .container
+      ==render 'shared/user_profile_nav'
+      ==render 'shared/flash'
+      == yield
+
+    = javascript_pack_tag 'application'
+

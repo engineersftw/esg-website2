@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311094033) do
+ActiveRecord::Schema.define(version: 20180317124323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20180311094033) do
     t.datetime "updated_at", null: false
     t.index ["access_token"], name: "index_access_tokens_on_access_token", unique: true
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
+  end
+
+  create_table "event_videos", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "presentation_id"
+    t.integer "sort_order", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_videos_on_event_id"
+    t.index ["presentation_id"], name: "index_event_videos_on_presentation_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -123,12 +133,12 @@ ActiveRecord::Schema.define(version: 20180311094033) do
 
   create_table "recordings", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "name", null: false
+    t.string "name"
     t.string "addr", null: false
     t.integer "clientid", null: false
+    t.string "path"
     t.datetime "start_time", null: false
     t.datetime "end_time"
-    t.string "path"
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -161,6 +171,8 @@ ActiveRecord::Schema.define(version: 20180311094033) do
   end
 
   add_foreign_key "access_tokens", "users"
+  add_foreign_key "event_videos", "events"
+  add_foreign_key "event_videos", "presentations"
   add_foreign_key "identities", "users"
   add_foreign_key "playlist_items", "playlists"
   add_foreign_key "playlist_items", "presentations"

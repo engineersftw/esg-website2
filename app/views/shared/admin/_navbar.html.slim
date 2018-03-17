@@ -1,0 +1,30 @@
+nav.main-header
+  .nav-wrapper
+    .container
+      a.brand-logo href="/"
+        img.responsive-img alt="Engineers.SG" src=asset_pack_path('images/engineerssg-logo-text-desc.svg') width="280" /
+
+      a.sidenav-trigger href="#" data-target="mobile-nav"
+        i.material-icons menu
+
+      ul.right.hide-on-med-and-down
+        li
+          a href="/admin/presentations/" title="Presentations"
+            i.material-icons.left video_library
+            span Presentations
+        li
+          a href="/admin/recordings" title="Recordings"
+            i.material-icons.left videocam
+            span Recordings
+        li
+          a href="/admin/events" title="Events"
+            i.material-icons.left event
+            span Events
+
+ul#mobile-nav.sidenav
+  li
+    a href="/admin/presentations" Presentations
+  li
+    a href="/admin/recordings" Recordings
+  li
+    a href="/admin/events/" Events

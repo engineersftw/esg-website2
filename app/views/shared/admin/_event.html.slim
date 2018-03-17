@@ -19,6 +19,8 @@ tr
       small= "Volunteers: #{event.esg_volunteer1} / #{event.esg_volunteer2}"
     - else
       span.new.badge(data-badge-caption='not_recording' class='grey')
-  td
+  td(nowrap=true)
+    a.waves-effect.waves-light.btn-small>(href=new_admin_presentation_path(event_id: event.id))
+      i.material-icons video_call
     a.waves-effect.waves-light.btn-small(href=edit_admin_event_path(event))
       i.material-icons edit
