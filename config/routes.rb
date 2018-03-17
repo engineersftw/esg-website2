@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'presentations#index'
-    resources :presentations, only: [:index, :edit, :update, :destroy]
+    resources :presentations
     resources :recordings, only: [:index]
     resources :events, only: [:index, :edit, :update, :new, :create] do
       collection do

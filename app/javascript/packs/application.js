@@ -34,4 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let anotherickerElem = document.querySelector('#event_end_datetime');
     M.Datepicker.init(anotherickerElem);
+
+    let presentationTitle = document.querySelector('#presentation_title');
+    M.CharacterCounter.init(presentationTitle);
+
+    let selectElem = document.querySelector('select');
+    M.FormSelect.init(selectElem);
 })

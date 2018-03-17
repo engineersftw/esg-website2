@@ -3,11 +3,14 @@ tr
     img src=presentation.image1 width=100
   td= presentation.presented_at.strftime('%e-%b-%Y')
   td
-    strong= presentation.title
+    h6= presentation.title
+  td
+    - publish_color = presentation.published ? 'green' : 'red'
+    span.new.badge(data-badge-caption=(presentation.published ? 'Yes' : 'No') class=publish_color)
   td
     span.new.badge(data-badge-caption=presentation.status)
   td(nowrap="true")
-    a.waves-effect.waves-light.btn-small>(href=admin_presentation_path(presentation) data-method='delete' data-confirm="Are you sure?")
-      i.material-icons delete
-    a.waves-effect.waves-light.btn-small(href=edit_admin_presentation_path(presentation))
+    a.waves-effect.waves-light.btn-small>(href=edit_admin_presentation_path(presentation))
       i.material-icons edit
+    a.waves-effect.waves-light.btn-small(href=admin_presentation_path(presentation) data-method='delete' data-confirm="Are you sure?")
+      i.material-icons delete

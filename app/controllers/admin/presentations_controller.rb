@@ -12,13 +12,13 @@ module Admin
 
     def update
       if @presentation.update(presentation_params)
-        if @presentation.video_source == 'youtube' && ENV['ALLOW_UPDATE_VIDEO_SITE'] == 'true'
+        if @presentation.video_source == 'youtube' && ENV['ALLOW_UPDATE_VIDEO_SITE'] == 'true' &&  @presentation.has_video_link?
           update_youtube_details_for(@presentation)
         end
 
         redirect_to admin_presentations_path, notice: 'Successfully updated presentation'
       else
-        flash.now[:alert] = 'Unable to create new token: ' + @presentation.errors.full_messages.join(". ")
+        flash.now[:alert] = 'Unable to update presentation: ' + @presentation.errors.full_messages.join(". ")
         render :edit
       end
     end
@@ -31,6 +31,22 @@ module Admin
       end
     end
 
+    def new
+      @recordings = Recording.ready
+      @presentation = Presentation.new(published: false)
+    end
+
+    def create
+      @presentation = Presentation.new(presentation_params)
+
+      if @presentation.save
+        redirect_to admin_presentations_path, notice: 'Successfully created presentation'
+      else
+        flash.now[:alert] = 'Unable to create new presentation: ' + @presentation.errors.full_messages.join(". ")
+        render :edit
+      end
+    end
+
     private
 
     def fetch_presentation
@@ -38,7 +54,7 @@ module Admin
     end
 
     def presentation_params
-      params.require(:presentation).permit(:title, :description)
+      params.require(:presentation).permit(:title, :description, :presented_at, :published)
     end
 
     def update_youtube_details_for(presentation)

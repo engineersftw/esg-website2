@@ -16,6 +16,12 @@
     = f.text_area :description, class: "materialize-textarea"
     = f.label :description
 
+  .input-field.col.s12.offset-m2.m8
+    p
+      label
+        = f.check_box :published
+        span Published
+
   .col.s12.offset-m2.m8
     button.btn.waves-effect.waves-light type="submit" name="action"
       | Update

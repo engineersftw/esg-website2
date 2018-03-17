@@ -1,0 +1,55 @@
+.row
+  .col.s12
+    h3 Admin - New Presentation
+
+= form_for(@presentation, url: admin_presentations_path(@presentation), multipart: true, html: {class: 'row presentation_upload_form'}) do |f|
+  = f.hidden_field :event_id
+  .row
+    .input-field.col.s12.offset-m2.m8
+      = f.text_field :title, class: 'validate', 'data-length'=>100
+      = f.label :title
+
+    .input-field.col.s12.offset-m2.m8
+      = f.text_area :description, class: "materialize-textarea"
+      = f.label :description
+
+    .input-field.col.s12.offset-m2.m8
+      = f.text_field :presented_at, class: 'datepicker'
+      = f.label :presented_at
+
+    .input-field.col.s12.offset-m2.m8
+      = f.select :recording_id, options_for_select(@recordings.map{|r| [ r.title, r.id, {'data-icon'=>r.cover} ]})
+      = f.label :recording_id, 'From Recording'
+
+    .input-field.col.s12.offset-m2.m8
+      p
+        label
+          = f.check_box :published
+          span Published
+
+    .col.s12.input-field.offset-m2.m8
+      button.btn.waves-effect.waves-light type="submit" name="action"
+        | Create
+        i.material-icons.right send
+      a.waves-effect.waves-teal.btn-flat href=admin_presentations_path Cancel
+
+  /.row
+    .col.s9
+      .file-field.input-field
+        .btn
+          span Video File
+        input(type="file" name="file")
+
+        .file-path-wrapper
+          input.file-path.validate(type="text")
+
+    .col.s3
+      .input-field
+        button.btn-large.waves-effect.waves-light.upload-btn.disabled[type="submit" name="action"]
+          | Upload
+          i.material-icons.right
+            | send
+
+    .col.s12.upload-progress-row(style="display:none;")
+      .progress
+        .determinate(style="width: 0%")
