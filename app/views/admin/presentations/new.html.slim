@@ -1,6 +1,6 @@
 .row
   .col.s12
-    h3 Admin - New Presentation
+    h4 Admin - New Presentation
 
 = form_for(@presentation, url: admin_presentations_path(@presentation), multipart: true, html: {class: 'row presentation_upload_form'}) do |f|
   = f.hidden_field :event_id

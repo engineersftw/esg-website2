@@ -1,5 +1,6 @@
 class Presentation < ApplicationRecord
   attr_accessor :recording_id
+  attr_accessor :event_id
 
   enum status: { deleted: 0, draft: 1, processing: 2, unpublished: 8, scheduled: 9, published: 10 }
 

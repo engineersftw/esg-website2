@@ -28,7 +28,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'presentations#index'
-    resources :presentations
+    resources :presentations do
+      collection do
+        get '/from_youtube', to: 'presentations#new_from_youtube'
+        post '/from_youtube', to: 'presentations#create_from_youtube'
+      end
+    end
     resources :recordings, only: [:index]
     resources :events, only: [:index, :edit, :update, :new, :create] do
       collection do
