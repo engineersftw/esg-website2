@@ -17,27 +17,63 @@ import 'materialize-css'
 import Rails from 'rails-ujs';
 Rails.start();
 
+import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
+import "blueimp-file-upload/js/jquery.iframe-transport.js";
+import "blueimp-file-upload/js/jquery.fileupload.js";
+import "blueimp-file-upload/js/jquery.fileupload-image.js";
+
+
 // Support component names relative to this directory:
 let componentRequireContext = require.context("components", true)
 import ReactRailsUJS from "react_ujs"
 ReactRailsUJS.useContext(componentRequireContext)
 
-document.addEventListener('DOMContentLoaded', () => {
-    let elem = document.querySelector('.sidenav');
-    M.Sidenav.init(elem);
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+  $('.tabs').tabs();
 
-    let el = document.querySelector('.tabs');
-    M.Tabs.init(el);
+  $('.datepicker').datepicker();
+  $('select').formSelect();
 
-    let datePickerElem = document.querySelector('.datepicker');
-    M.Datepicker.init(datePickerElem);
+  $('#presentation_title').characterCounter();
 
-    let anotherickerElem = document.querySelector('#event_end_datetime');
-    M.Datepicker.init(anotherickerElem);
-
-    let presentationTitle = document.querySelector('#presentation_title');
-    M.CharacterCounter.init(presentationTitle);
-
-    let selectElem = document.querySelector('select');
-    M.FormSelect.init(selectElem);
-})
+  $('.presentation_upload_form').fileupload({
+    dataType: 'json',
+    replaceFileInput: false,
+    url: $('.presentation_upload_form').attr('action'),
+    add: function (e, data) {
+      $(this).find('.upload-btn').removeClass('disabled');
+      $(this).find('.file-path').removeClass('invalid');
+      $(this).find('.upload-btn').click(function (e) {
+        e.preventDefault();
+        $(this).addClass('disabled');
+        data.submit();
+      });
+    },
+    progressall: function(e, data) {
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $(this).find('.upload-progress-row').show();
+      $(this).find('.determinate').css(
+        'width',
+        progress + '%'
+      );
+    },
+    always: function (e, data) {
+      $(this).find('.upload-progress-row').hide();
+    },
+    fail: function (e, data) {
+      Materialize.toast(data.jqXHR.responseJSON.error, 10000);
+      $(this).find('.file-path').addClass('invalid');
+      $(this).find('.upload-btn').removeClass('disabled');
+    },
+    done: function (e, data) {
+      $(this).find('.upload-btn').addClass('disabled');
+      if ($('.presentation-new').length > 0) {
+        window.location.href = "/presentations?status=notice&message=Upload+finished.";
+      } else {
+        $(this).find('.file-upload-row').hide();
+        Materialize.toast('Upload finished.', 4000);
+      }
+    }
+  });
+});

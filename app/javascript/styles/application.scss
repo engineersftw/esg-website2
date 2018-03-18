@@ -1,6 +1,10 @@
 @import "~materialize-css/sass/components/color-variables";
 $primary-color: rgb(223, 223, 223) !default;
 $secondary-color: #3C74A3 !default;
+
+$tabs-underline-color: #999 !default;
+$tabs-text-color: #999 !default;
+
 @import "~materialize-css/sass/materialize";
 .main-header {
     a {

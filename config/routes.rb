@@ -30,7 +30,6 @@ Rails.application.routes.draw do
     get '/', to: 'presentations#index'
     resources :presentations do
       collection do
-        get '/from_youtube', to: 'presentations#new_from_youtube'
         post '/from_youtube', to: 'presentations#create_from_youtube'
       end
     end

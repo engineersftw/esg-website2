@@ -31,25 +31,6 @@ module Admin
       end
     end
 
-    def new_from_youtube
-      @presentation = Presentation.new
-    end
-
-    def create_from_youtube
-      begin
-        video_item = youtube_service.get_video(params[:presentation][:video_id])
-        @presentation = Presentation.from_youtube(video_item)
-
-        if @presentation.save
-          redirect_to admin_presentations_path, notice: 'Successfully created presentation'
-        else
-          redirect_to admin_presentations_path, alert: 'Unable to create presentation'
-        end
-      rescue => e
-        redirect_to admin_presentations_path, alert: "Unable to create presentation: #{e.message}"
-      end
-    end
-
     def new
       @recordings = Recording.ready
 
@@ -78,6 +59,21 @@ module Admin
         @presentation.event_id = transient_params[:event_id]
         flash.now[:alert] = 'Unable to create new presentation: ' + @presentation.errors.full_messages.join(". ")
         render :edit
+      end
+    end
+
+    def create_from_youtube
+      begin
+        video_item = youtube_service.get_video(params[:presentation][:video_id])
+        @presentation = Presentation.from_youtube(video_item)
+
+        if @presentation.save
+          redirect_to admin_presentations_path, notice: 'Successfully created presentation'
+        else
+          redirect_to admin_presentations_path, alert: 'Unable to create presentation'
+        end
+      rescue => e
+        redirect_to admin_presentations_path, alert: "Unable to create presentation: #{e.message}"
       end
     end
 
