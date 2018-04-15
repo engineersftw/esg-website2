@@ -1,13 +1,13 @@
 class EventsController < ApplicationController
   def index
     @current_page = (params[:page] || 1).to_i
-    @events = Event.active.upcoming.order('start_datetime ASC, title ASC').page(@current_page)
+    @events = Event.active.upcoming.order('start_datetime ASC, title ASC').page(@current_page).per(15)
     @total_records = @events.total_count
   end
 
   def history
     @current_page = (params[:page] || 1).to_i
-    @events = Event.active.past.order('start_datetime DESC, title ASC').page(@current_page)
+    @events = Event.active.past.order('start_datetime DESC, title ASC').page(@current_page).per(15)
     @total_records = @events.total_count
   end
 
