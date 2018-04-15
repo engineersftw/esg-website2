@@ -4,10 +4,14 @@ class StreamerService
   end
 
   def screenshots(name, start_time, end_time)
-    query = { name: name, start_time: start_time.to_i, end_time: end_time.to_i }
-    screenshots = fetch '/screenshots.php', query
+    begin
+      query = { name: name, start_time: start_time.to_i, end_time: end_time.to_i }
+      screenshots = fetch '/screenshots.php', query
 
-    screenshots[:data][:files].map{ |f| ENV['STREAMER_URL'] + f }
+      screenshots[:data][:files].map{ |f| ENV['STREAMER_URL'] + f }
+    rescue => e
+      []
+    end
   end
 
   private

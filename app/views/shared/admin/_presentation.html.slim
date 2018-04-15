@@ -10,7 +10,7 @@ tr
   td
     span.new.badge(data-badge-caption=presentation.status)
   td(nowrap="true")
-    a.waves-effect.waves-light.btn-small>(href=edit_admin_presentation_path(presentation))
+    a.waves-effect.waves-light.btn-small>(href=edit_admin_presentation_path(presentation) title="Edit Presentation")
       i.material-icons edit
-    a.waves-effect.waves-light.btn-small(href=admin_presentation_path(presentation) data-method='delete' data-confirm="Are you sure?")
+    a.waves-effect.waves-light.btn-small(href=admin_presentation_path(presentation) data-method='delete' data-confirm="Are you sure?" title="Delete Presentation")
       i.material-icons delete

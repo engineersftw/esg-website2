@@ -2,7 +2,8 @@ require 'faraday'
 
 class WebuildsgEventsService
   def scrape
-    response = Faraday.get 'https://webuild.sg/api/v1/events'
+    events_url = ENV['WEBUILDSG_EVENT_URL'] || 'https://webuild.sg/api/v1/events'
+    response = Faraday.get events_url
     meetups = JSON.parse(response.body, symbolize_names: true)
 
     meetups[:events].collect do |meetup|
